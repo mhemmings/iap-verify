@@ -29,6 +29,7 @@ func main() {
 	receipt := string(fileBytes)
 
 	sandbox := flag.Bool("sandbox", false, "True if this is a sandbox receipt")
+	secret := flag.String("secret", "", "Shared secret which is needed to validate auto-renewing subscriptions")
 	flag.Parse()
 
 	appStoreConf := appstore.Config{
@@ -39,6 +40,10 @@ func main() {
 
 	req := appstore.IAPRequest{
 		ReceiptData: strings.TrimSpace(receipt),
+	}
+
+	if len(*secret) > 0 {
+		req.Password = *secret
 	}
 
 	resp := &appstore.IAPResponse{}
@@ -64,5 +69,5 @@ func main() {
 }
 
 func printUsage() {
-	fmt.Println("USAGE: iap-verify [-sandbox] path-to-receipt")
+	fmt.Println("USAGE: iap-verify [-sandbox] [-secret] path-to-receipt")
 }

@@ -6,13 +6,17 @@ A small CLI tool to verify and get info on individual Apple App Store receipts, 
 
 `go install github.com/mhemmings/iap-verify`
 
-##Usage: 
+##Usage:
 
 `iap-verify /path/to/b64receipt`
 
 To verify a sandbox receipt:
 
 `iap-verify -sandbox /path/to/b64receipt`
+
+To verify an autorenewing subscription, you need a shared secret:
+
+`iap-verify -secret="sharedsecret" /path/to/b64receipt`
 
 ##Limitations/Future:
 
